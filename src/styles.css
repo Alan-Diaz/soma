@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+:root{
+    --dark-green: #0B2416;
+    --light-green: #284D38;
+    --beige: #F7F1DA;
+
+}
+@media (min-width: 768px) {
+  .mobile-only {
+    display: none;
+  }
+}
