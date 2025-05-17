@@ -5,8 +5,15 @@
     --beige: #F7F1DA;
 
 }
+body{
+    background-color: var(--beige);
+    font-family: 'Cormorant Garamond', serif;
+}
+
 @media (min-width: 768px) {
   .mobile-only {
     display: none;
   }
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
