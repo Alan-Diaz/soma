@@ -1,6 +1,6 @@
 
 export default {
-  basePath: '/',
+  basePath: '/soma',
   supportedLocales: {
   "en-US": ""
 },

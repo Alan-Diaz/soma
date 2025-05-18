@@ -2,19 +2,19 @@
 export default {
   bootstrap: () => import('./main.server.mjs').then(m => m.default),
   inlineCriticalCss: true,
-  baseHref: '/',
+  baseHref: '/soma/',
   locale: undefined,
   routes: [
   {
     "renderMode": 2,
-    "route": "/"
+    "route": "/soma"
   }
 ],
   entryPointToBrowserMapping: undefined,
   assets: {
-    'index.csr.html': {size: 28203, hash: '406be661280e33caeace31a9b370b91bd63e900acbf21a6399db4069673f8b18', text: () => import('./assets-chunks/index_csr_html.mjs').then(m => m.default)},
-    'index.server.html': {size: 17215, hash: 'e53c5ce2a9335bb7bec49f104e91f1eb142683df55cd46a2866ccb513f317af0', text: () => import('./assets-chunks/index_server_html.mjs').then(m => m.default)},
-    'index.html': {size: 35701, hash: '44751fd127b4b154810fb4ca973305bf6c4201c8382d9414bb1c05eee131f9cf', text: () => import('./assets-chunks/index_html.mjs').then(m => m.default)},
+    'index.csr.html': {size: 28208, hash: '8b226e3ececdc79986a69e11c385d204a090a1209fc0ee71c8f67463ae2a6d96', text: () => import('./assets-chunks/index_csr_html.mjs').then(m => m.default)},
+    'index.server.html': {size: 17220, hash: '0f25fa14e5bfadbb32945cf1fd26d07e2c18608d16dd5d6d7b54ec28149fc7e2', text: () => import('./assets-chunks/index_server_html.mjs').then(m => m.default)},
+    'index.html': {size: 35706, hash: '0aeb41b0f15a25d7814c07fe24901b020a403fcb9e62a0188878305c540fda00', text: () => import('./assets-chunks/index_html.mjs').then(m => m.default)},
     'styles-JTSHUL47.css': {size: 238054, hash: 'bYumgCXwp1Q', text: () => import('./assets-chunks/styles-JTSHUL47_css.mjs').then(m => m.default)}
   },
 };
