@@ -9,5 +9,4 @@ import { HeadComponent } from './head/head.component';
 })
 export class AppComponent {
   title = 'soma';
-  
 }

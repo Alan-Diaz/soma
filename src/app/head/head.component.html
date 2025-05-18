@@ -7,22 +7,10 @@
     </div>
     <div class="carousel-container align-content-center">
 
-        <ngb-carousel>
-            <ng-template ngbSlide >
+        <ngb-carousel [showNavigationArrows]="showNavigationArrows" [showNavigationIndicators]="showNavigationIndicators">
+            <ng-template ngbSlide *ngFor="let url of images; let i = index" >
                 <div class="picsum-img-wrapper d-flex justify-content-center">
-                    <img img="img-fluid " src="https://pbs.twimg.com/media/GrKzC3PWQAA6qkq?format=jpg&name=medium"  />
-                </div>
-              
-            </ng-template>
-            <ng-template ngbSlide>
-                <div class="picsum-img-wrapper  d-flex justify-content-center">
-                    <img img="img-fluid" src="https://pbs.twimg.com/media/GrKzC3PWQAA6qkq?format=jpg&name=medium" />
-                </div>
-              
-            </ng-template>
-            <ng-template ngbSlide>
-                <div class="picsum-img-wrapper  d-flex justify-content-center">
-                    <img img="img-fluid" src="https://pbs.twimg.com/media/GrKzC3PWQAA6qkq?format=jpg&name=medium"/>
+                    <img img="img-fluid" src="{{url}}" alt=""/>
                 </div>
             </ng-template>
         </ngb-carousel>
