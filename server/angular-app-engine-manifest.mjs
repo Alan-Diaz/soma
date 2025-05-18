@@ -1,6 +1,6 @@
 
 export default {
-  basePath: '/soma/browser',
+  basePath: '/soma',
   supportedLocales: {
   "en-US": ""
 },
