@@ -1,0 +1,15 @@
+[
+    {
+        "name": "lechuga",
+        "price": 300.00
+    },{
+        "name": "tomate",
+        "price": 300.00
+    },{
+        "name": "muzzarella",
+        "price": 500.00
+    },{
+        "name": "huevo a la plancha",
+        "price": 600
+    }
+]
