@@ -4,3 +4,6 @@
 div{
     color: var(--dark-green);
 }
+.table, th, tr,td{
+    background-color: var(--beige);
+}

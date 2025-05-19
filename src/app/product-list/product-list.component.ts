@@ -4,6 +4,7 @@ import { OnInit } from '@angular/core';
 import { Product } from '../models/product.model';
 import { ProductsService } from '../services/products.service';
 import { NgFor } from '@angular/common';
+import { Optional } from '../models/optional.model';
 
 @Component({
   selector: 'app-product-list',
@@ -14,11 +15,15 @@ import { NgFor } from '@angular/common';
 })
 export class ProductListComponent  implements OnInit {
   products: Product[] = [];
+  optionals: Optional[] = [];
   constructor(private productService: ProductsService) {}
   ngOnInit(): void {
     this.productService.getProducts().subscribe(data => {
       this.products = data;
-      console.log(this.products);
+    });
+    this.productService.getOptionals().subscribe(op=>{
+      this.optionals = op;
+      console.log(op);
       
     });
   }

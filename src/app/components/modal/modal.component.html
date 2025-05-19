@@ -3,12 +3,37 @@
 		<h4 class="modal-title" id="modal-basic-title">{{ product.name }}</h4>
 		<button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
 	</div>
+	<!-- BODY -->
 	<div class="modal-body">
 		<img src="{{ product.img }}" class="img-fluid" alt="">
 		<p>{{product.description}}</p>
+		<h5>Opcionales</h5>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col">Producto</th>
+					<th scope="col">Valor</th>
+					<th scope="col"></th>
+				</tr>
+			</thead>
+			<tbody>
+					<tr *ngFor="let optional of optionals; let i = index" >
+						<th scope="row">{{optional.name}}</th>
+						<td>
+							{{optional.price}}
+						</td>
+						<td>boton plus</td>
+					</tr>
+			</tbody>
+		</table>
+
 	</div>
-	<div class="modal-footer">
-		<button type="button" class="btn btn-outline-secondary" (click)="c('Save click')">Save</button>
+
+	<!-- FOOTER -->
+	<div class="modal-footer d-flex justify-content-between">
+		<h5 class="">Total</h5>
+		<p>total</p>
+		<button type="button" class="btn btn-outline-secondary" (click)="c('Save click')">Pedir</button>
 	</div>
 </ng-template>
 <svg (click)="open(content)"  width="50" height="50" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
