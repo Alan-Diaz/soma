@@ -7,3 +7,6 @@ div{
 .table, th, tr,td{
     background-color: var(--beige);
 }
+.warn{
+    color: red;
+}

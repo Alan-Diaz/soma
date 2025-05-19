@@ -1,4 +1,7 @@
 export interface Optional{
+    id:number,
     name:string,
-    price:number
+    price:number,
+    max:number,
+    count:number
 }
