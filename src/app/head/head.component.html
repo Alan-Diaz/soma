@@ -8,9 +8,9 @@
     <!-- Carousel container images url in component.ts-->
     <div class="carousel-container align-content-center">
         <ngb-carousel [showNavigationArrows]="showNavigationArrows" [showNavigationIndicators]="showNavigationIndicators">
-            <ng-template ngbSlide *ngFor="let url of images; let i = index" >
+            <ng-template ngbSlide *ngFor="let url of products; let i = index" >
                 <div class="picsum-img-wrapper d-flex justify-content-center">
-                    <img img="img-fluid" src="{{url}}" alt=""/>
+                    <img img="img-fluid" src="{{url.img}}" alt=""/>
                 </div>
             </ng-template>
         </ngb-carousel>

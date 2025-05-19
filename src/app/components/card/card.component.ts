@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
 import { ModalComponent } from "../modal/modal.component";
+import { Product } from '../../models/product.model';
 @Component({
   selector: 'app-card',
   imports: [ModalComponent],
@@ -8,9 +9,14 @@ import { ModalComponent } from "../modal/modal.component";
   styleUrl: './card.component.css'
 })
 export class CardComponent {
-@Input() url: string='';
-@Input() title: string='';
-@Input() price: string='';
+@Input() product: Product = {
+  id:0,
+  description:"",
+  img:"",
+  name:"",
+  price:0
+};
+
 
 
 }

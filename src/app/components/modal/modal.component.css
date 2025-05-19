@@ -1,0 +1,6 @@
+.modal-background, .modal-header, .modal-body, .modal-footer{
+    background-color: var(--beige);
+}
+div{
+    color: var(--dark-green);
+}

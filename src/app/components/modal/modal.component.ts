@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-
+import { Input } from '@angular/core';
+import { Product } from '../../models/product.model';
 @Component({
   selector: 'app-modal',
   imports: [],
@@ -9,13 +10,22 @@ import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 	providers: [NgbModalConfig, NgbModal],
 })
 export class ModalComponent {
+
+	@Input() product: Product = {
+		id:0,
+		description:"",
+		img:"",
+		name:"",
+		price:0
+	  };
+
   constructor(
 		config: NgbModalConfig,
 		private modalService: NgbModal,
 	) {
-		// customize default values of modals used by this component tree
 		config.backdrop = 'static';
 		config.keyboard = false;
+    	config.centered = true;
 	}
 
 	open(content: any) {
