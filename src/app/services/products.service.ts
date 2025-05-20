@@ -21,6 +21,10 @@ export class ProductsService {
     return this.http.get<Optional[]>('assets/products/optionals.json');
   }
 
+  getProductsPerOrder(): Observable<Product[]> {
+    return this.http.get<Product[]>('assets/products/perOrder.json');
+  }
+
 
 
 }
