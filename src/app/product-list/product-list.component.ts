@@ -13,7 +13,7 @@ import { Optional } from '../models/optional.model';
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css'
 })
-export class ProductListComponent  implements OnInit {
+export class ProductListComponent implements OnInit {
   products: Product[] = [];
   optionals: Optional[] = [];
   constructor(private productService: ProductsService) {}
@@ -23,8 +23,6 @@ export class ProductListComponent  implements OnInit {
     });
     this.productService.getOptionals().subscribe(op=>{
       this.optionals = op;
-      console.log(op);
-      
     });
   }
 

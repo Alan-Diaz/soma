@@ -8,9 +8,9 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:soma": "node dist/soma/server/server.mjs",
-    "buildProd": "ng build --configuration production --base-href /soma/",
+    "buildProd": "ng build --configuration production ",
     "deployProd": "npx angular-cli-ghpages --dir=dist/soma/browser",
-    "pp": "npm run buildProd && npm run deployProd"
+    "pp": "npm run build && npm run deployProd"
   },
   "private": true,
   "dependencies": {
