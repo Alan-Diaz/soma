@@ -7,10 +7,6 @@
     background-color: var(--light-green);
     color: var(--beige);
 }
-.close-button{
-    width: 50%;
-    background-color: var(--beige);
-}
 .li-background{
     background-color: rgba(8, 27, 16, 0);
     color: var(--beige);
@@ -23,6 +19,14 @@
 ul ul {
     margin-left: 2rem; /* o lo que necesites */
 }
+ul{
+    padding: 0;
+}
 .minus{
     background-color: var(--beige);
+}
+.bottom{
+    position: absolute;
+    bottom: 2rem;
+    width: 100%;
 }

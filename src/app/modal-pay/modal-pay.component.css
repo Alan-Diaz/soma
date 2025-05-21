@@ -1,0 +1,27 @@
+.close-button{
+    width: 50%;
+    background-color: var(--beige);
+}
+.modal-background, .modal-header, .modal-body, .modal-footer{
+    background-color: var(--beige);
+}
+.modal-body{
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+
+.text{
+    margin: 0.5rem 0 0 0;
+    padding: 0;
+}
+.form-check-input:checked {
+    background-color:var(--light-green); 
+    border-color: var(--light-green);
+}
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.2rem rgba(11, 36, 22, 0.25); /* sombra del color */
+}
+.inputHome{
+    width: 50%;
+    margin-left: 3rem;
+}

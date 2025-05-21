@@ -11,8 +11,9 @@ body{
 }
 
 .offcanvas-backdrop {
-  background-color: rgba(5, 16, 9, 0.9) !important; /* tu color con opacidad */
+  background-color: rgba(5, 16, 9, 0.9) !important; 
 }
+
 
 @media (min-width: 768px) {
   .mobile-only {
@@ -21,4 +22,3 @@ body{
 }
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

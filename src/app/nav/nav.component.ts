@@ -1,12 +1,12 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { NgbOffcanvas, NgbOffcanvasConfig } from '@ng-bootstrap/ng-bootstrap';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { CartService } from '../services/cart.service';
 import { Cart } from '../models/cart.model';
-
+import { ModalPayComponent } from '../modal-pay/modal-pay.component';
 @Component({
   selector: 'app-nav',
-  imports: [NgFor],
+  imports: [NgFor, NgIf, ModalPayComponent],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.css',	
   providers: [NgbOffcanvasConfig, NgbOffcanvas],
@@ -41,4 +41,10 @@ export class NavComponent implements OnInit {
   open(content: TemplateRef<any>) {
 		this.offcanvasService.open(content);
 	}
+
+  removeItem(id:number){
+    console.log("aloha");
+    this.cartService.removeItem(id);
+  }
+
 }

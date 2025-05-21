@@ -1,0 +1,51 @@
+<ng-template #content let-c="close" let-d="dismiss" >
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title"></h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+	</div>
+	<!-- BODY -->
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-2">
+				<svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="33" height="33" viewBox="0 0 48.000000 48.000000"preserveAspectRatio="xMidYMid meet"><g transform="translate(0.000000,48.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none"> <path d="M40 451 c-36 -36 -46 -73 -30 -112 26 -63 89 -85 150 -54 37 19 50 43 50 90 0 47 -13 71 -50 90 -46 24 -87 19 -120 -14z m118 -21 c32 -30 30 -82 -4 -109 -54 -42 -118 -13 -118 54 0 66 74 99 122 55z"/><path d="M97 433 c-4 -3 -7 -15 -7 -25 0 -11 -7 -18 -20 -18 -11 0 -20 -7 -20 -15 0 -10 11 -15 35 -15 34 0 35 1 35 40 0 38 -8 49 -23 33z"/><path d="M307 333 c-12 -11 -8 -21 13 -26 18 -5 20 -14 20 -106 0 -100 0 -101 -24 -101 -18 0 -25 7 -30 30 l-6 31 -97 -3 -98 -3 -3 -42 -3 -43 196 0 c170 0 196 2 202 16 10 27 -24 83 -62 101 -42 20 -45 32 -7 30 24 -2 27 1 30 36 3 36 3 37 -32 37 -25 0 -36 5 -36 15 0 22 -48 44 -63 28z"/><path d="M104 225 c-11 -27 10 -36 77 -33 56 3 64 5 64 23 0 18 -8 20 -68 23 -54 2 -68 0 -73 -13z"/><path d="M132 38 c7 -19 47 -36 69 -31 11 3 24 14 30 24 9 18 5 19 -46 19 -41 0 -56 -3 -53 -12z"/> <path d="M340 40 c0 -5 11 -17 24 -25 27 -18 69 -8 79 19 5 13 -3 16 -48 16 -30 0 -55 -4 -55 -10z"/> </g> </svg>
+			</div>
+			<div class="col-6 align-content-center">
+				<p class="text">Envio a domicilio</p>
+			</div>
+			<div class="col-4 text align-content-center">
+				<input [(ngModel)]="showInput" class="form-check-input" type="checkbox" value="" id="checkDefault">
+				<label class="form-check-label" for="checkDefault"></label>
+			</div>
+		</div>
+		<div *ngIf="showInput" class="row d-flex justify-content-start mt-3">
+			<input class="inputHome" type="text" name="Domicilio" value="Domicilio" id="">
+			<input class="inputHome mt-1" type="text" name="Referencia" value="Timbre, reja negra, etc." id="">
+		</div>
+		<div class="row mt-3">
+			<div class="col-6">
+				<label class="form-check-label" for="now"> Para comer ahora</label>
+				<input [(ngModel)]="now" (change)="onCheck(1)" class="form-check-input" type="checkbox" value="" id="now">
+			</div>
+			<div class="col-6">
+				<label class="form-check-label" for="later"> Para despues</label>
+				<input [(ngModel)]="later" (change)="onCheck(2)" class="form-check-input" type="checkbox" value="" id="later">
+			</div>
+			<div *ngIf="now" class="mb-3 d-flex justify-content-center" >
+				<ngb-timepicker [formControl]="ctrl"></ngb-timepicker>
+			</div>
+			<div *ngIf="later" class="mb-3 d-flex justify-content-center" >
+				<ngb-datepicker #dp [(ngModel)]="model" (navigate)="date = $event.next" />
+			</div>
+
+
+		</div>
+	</div>
+
+	<!-- FOOTER -->
+	<div class="modal-footer d-flex justify-content-end">
+		<button type="button" class="btn btn-outline-secondary" (click)="close()">Pedir</button>
+	</div>
+</ng-template>
+<button (click)="open(content)" type="button" class="btn btn-outline-success close-button">Finalizar pedido</button>
+
+

@@ -6,8 +6,6 @@ import { Optional } from '../../models/optional.model';
 import { NgFor, NgIf } from '@angular/common';
 import { OnInit } from '@angular/core';
 import { CartService } from '../../services/cart.service';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { log } from 'console';
 @Component({
   selector: 'app-modal',
   standalone: true,
@@ -20,7 +18,7 @@ export class ModalComponent implements OnInit {
 
 	total : number = 0;
 	totalCart:number=0;
-	opcionalsCart : Optional[]=[];
+	optionalsCart : Optional[]=[];
 	warn: string="";
 	modalRef: any;
 
@@ -57,14 +55,13 @@ export class ModalComponent implements OnInit {
 	}
 
 	plus(op :Optional){
-		const index = this.opcionalsCart.findIndex(p => p.id === op.id);
+		const index = this.optionalsCart.findIndex(p => p.id === op.id);
 		if (index === -1) {
 			op.count = 1;
-			this.opcionalsCart.push(op);
-			console.log(this.opcionalsCart);
-			
+			const o = {"id" : op.id, "name": op.name, "price": op.price, "max":op.max, "count":op.count };
+			this.optionalsCart.push(o);
 		} else {
-			const actual = this.opcionalsCart[index];
+			const actual = this.optionalsCart[index];
 			if (actual.count < actual.max) {
 				actual.count++;
 			} else {
@@ -74,26 +71,26 @@ export class ModalComponent implements OnInit {
 				}, 5000);
 			}
 		}
-		this.totalCart = this.opcionalsCart.reduce((total, p) => total + p.price * p.count, 0);
+		this.totalCart = this.optionalsCart.reduce((total, p) => total + p.price * p.count, 0);
 		this.total = this.product.price + this.totalCart;
 	}
 
 	minus(op:Optional){
-		const index = this.opcionalsCart.findIndex(p => p.id === op.id);
+		const index = this.optionalsCart.findIndex(p => p.id === op.id);
 		if (index !== -1) {
-			const optional = this.opcionalsCart[index];
+			const optional = this.optionalsCart[index];
 			if (optional.count <= 1) {
-				this.opcionalsCart.splice(index, 1);
+				this.optionalsCart.splice(index, 1);
 			}
 			optional.count--;
 		}
-		this.totalCart = this.opcionalsCart.reduce((total, p) => total + p.price * p.count, 0);
+		this.totalCart = this.optionalsCart.reduce((total, p) => total + p.price * p.count, 0);
 		this.total = this.product.price + this.totalCart;
 	}
 
 	close(){
-		this.cartService.addItem(this.product, this.opcionalsCart);
-		this.opcionalsCart = [];
+		this.cartService.addItem(this.product, this.optionalsCart);
+		this.optionalsCart = [];
 		this.optionals.forEach(op => op.count = 0);
 		this.modalRef?.close('');
 	}

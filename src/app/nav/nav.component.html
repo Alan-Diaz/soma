@@ -8,28 +8,33 @@
             </div>
             <div class="offcanvas-body">
 
-                <ul class="list-group list-group-flush li-background">
-                    <li *ngFor="let item of cart.cartItem; let i = index" class="d-flex flex-column h-1 li-background mt-2">
-                       
-                        <div class="d-flex justify-content-between">
-                            <span class="principal-product">{{item.product.name}}</span> 
-                            <span class="">
+                <ul class="list-group-flush li-background">
+                    <li *ngFor="let item of cart.cartItem; let i = index" class="d-flex flex-column h-1 li-background mt-2">        
+                        <div class="d-flex justify-content-between"> 
+                            <svg (click)="removeItem(item.id)" width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M29.4643 0H3.53571C1.58371 0 0 1.58371 0 3.53571V29.4643C0 31.4163 1.58371 33 3.53571 33H29.4643C31.4163 33 33 31.4163 33 29.4643V3.53571C33 1.58371 31.4163 0 29.4643 0ZM6.77679 19.4464C6.29063 19.4464 5.89286 19.0487 5.89286 18.5625V14.4375C5.89286 13.9513 6.29063 13.5536 6.77679 13.5536H26.2232C26.7094 13.5536 27.1071 13.9513 27.1071 14.4375V18.5625C27.1071 19.0487 26.7094 19.4464 26.2232 19.4464H6.77679Z" fill="#F7F1DA"/></svg>                      
+                            <span class="principal-product align-self-center">{{item.product.name}}</span> 
+                            <span class=" align-self-center">
                                 {{item.product.price}}
-                                <svg width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M29.4643 0H3.53571C1.58371 0 0 1.58371 0 3.53571V29.4643C0 31.4163 1.58371 33 3.53571 33H29.4643C31.4163 33 33 31.4163 33 29.4643V3.53571C33 1.58371 31.4163 0 29.4643 0ZM6.77679 19.4464C6.29063 19.4464 5.89286 19.0487 5.89286 18.5625V14.4375C5.89286 13.9513 6.29063 13.5536 6.77679 13.5536H26.2232C26.7094 13.5536 27.1071 13.9513 27.1071 14.4375V18.5625C27.1071 19.0487 26.7094 19.4464 26.2232 19.4464H6.77679Z" fill="#F7F1DA"/></svg>
                             </span>
                         </div>
                         <ul *ngFor="let subitem of item.optionals; let i = index" class="list-group list-group-flush">
                             <div class="d-flex justify-content-between">
-                                <span class="">{{subitem.name}}</span> 
-                                <span class="">{{subitem.price}}</span>
+                                <div></div>
+                                <span class="align-self-center">{{subitem.name}} 
+                                    <span *ngIf="subitem.count == 1"> x1</span>
+                                    <span *ngIf="subitem.count == 2"> x2</span>
+                                </span> 
+                                <span class="align-self-center">{{subitem.price}}
+                                </span>
                             </div>
                         </ul>
                     </li>
                 </ul>
 
-                <div class="text-center">
+
+                <div class="row text-center d-flex justify-content-center bottom">
                     <p>Total : {{total}}</p>
-                    <button type="button" class="btn btn-outline-success close-button" (click)="offcanvas.close('Close click')">Finalizar pedido</button>
+                    <app-modal-pay></app-modal-pay>
                 </div>
             </div>
         </ng-template>
