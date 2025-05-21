@@ -23,8 +23,8 @@ export class Cart{
 
     public cartItem : CartItem[];
 
-    constructor(){
-        this.cartItem = [];
+    constructor(c : CartItem[]){
+        this.cartItem = c;
     }
 
     getTotalValue():number{

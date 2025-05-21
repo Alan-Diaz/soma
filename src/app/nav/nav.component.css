@@ -1,5 +1,28 @@
 .nav-color{
     background-color: rgba(8, 27, 16, 0.9);
     color: var(--beige);
-    
+}
+
+.offcanvas-header, .offcanvas-body{
+    background-color: var(--light-green);
+    color: var(--beige);
+}
+.close-button{
+    width: 50%;
+    background-color: var(--beige);
+}
+.li-background{
+    background-color: rgba(8, 27, 16, 0);
+    color: var(--beige);
+    list-style: none;
+}
+.principal-product{
+    font-size: large;
+    font-weight: bold;
+}
+ul ul {
+    margin-left: 2rem; /* o lo que necesites */
+}
+.minus{
+    background-color: var(--beige);
 }

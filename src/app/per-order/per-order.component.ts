@@ -27,8 +27,6 @@ export class PerOrderComponent implements OnInit {
     this.productService.getProductsPerOrder().subscribe(data => {
       this.products = data;
       this.last = this.products.at(-1)!;
-      console.log(this.last);
-      
     });
   }
 

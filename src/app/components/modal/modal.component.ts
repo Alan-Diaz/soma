@@ -30,8 +30,9 @@ export class ModalComponent implements OnInit {
 		img:"",
 		name:"",
 		price:0
-	  };
-	  @Input() optionals: Optional[]=[];
+	};
+
+	@Input() optionals: Optional[]=[];
 	  
 	
 	constructor(
@@ -60,6 +61,8 @@ export class ModalComponent implements OnInit {
 		if (index === -1) {
 			op.count = 1;
 			this.opcionalsCart.push(op);
+			console.log(this.opcionalsCart);
+			
 		} else {
 			const actual = this.opcionalsCart[index];
 			if (actual.count < actual.max) {
@@ -89,7 +92,9 @@ export class ModalComponent implements OnInit {
 	}
 
 	close(){
-		this.modalRef?.close('');
 		this.cartService.addItem(this.product, this.opcionalsCart);
+		this.opcionalsCart = [];
+		this.optionals.forEach(op => op.count = 0);
+		this.modalRef?.close('');
 	}
 }

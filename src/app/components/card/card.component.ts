@@ -20,6 +20,4 @@ export class CardComponent {
 
 @Input() optionals: Optional[] = [];
 
-
-
 }
