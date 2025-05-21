@@ -23,12 +23,6 @@
         "price": 12000.00,
         "description": "Atun en lomos al natural con crema y verdeo salpimentado.",
         "img":"assets/img/atun y crema sin fondo.png"
-    },{
-        "id": 4,
-        "name": "Vegetariano",
-        "price": 9000.00,
-        "description": "2 huevos a la plancha con muzzarella lechuga y tomate",
-        "img":"assets/img/atun y crema sin fondo.png"
     }
 
 ]
