@@ -68,10 +68,6 @@ export class ModalComponent implements OnInit {
 			if (op.count < op.max) {
 				op.count++;
 				op.price = op.price * op.count;
-				console.log(op);
-				console.log(this.optionalsCart);
-				
-				
 			} else {
 				this.warn = "Se alcanzó la cantidad máxima para " + op.name;
 				setTimeout(() => {
@@ -80,7 +76,6 @@ export class ModalComponent implements OnInit {
 			}
 		}
 		this.totalCart = this.optionalsCart.reduce((total, p) => total + p.price, 0);
-		console.log(this.totalCart);
 		this.total = this.product.price + this.totalCart;
 	}
 

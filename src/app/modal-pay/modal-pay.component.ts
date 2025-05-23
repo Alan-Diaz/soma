@@ -1,5 +1,5 @@
 import { NgIf, NgClass, NgFor } from '@angular/common';
-import { Component,  inject, ViewEncapsulation } from '@angular/core';
+import { Component,  inject, Input, ViewEncapsulation } from '@angular/core';
 import { FormsModule, ReactiveFormsModule,  } from '@angular/forms';
 import { 
 	NgbModal,
@@ -13,7 +13,6 @@ import {
 } 
 	
 from '@ng-bootstrap/ng-bootstrap';
-import { log } from 'console';
 import { CartService } from '../services/cart.service';
 
 @Component({
@@ -39,7 +38,8 @@ export class ModalPayComponent {
 	date: { day: number; month: number } = {day:this.today.day, month: this.today.month};
 	time = { hour: 12, minute: 30 };
 	outOfRange: {can:boolean, msj:string}={can:true, msj:"Dentro del horario de atencion/despacho"};
-
+	residence :string="";
+	reference : string ="";
 	arrWarns : {warn: string, active: boolean}[] = [
 		{warn: "Debe elegir delivery", active: false},
 		{warn: "Debe que elgir momento de entrega", active: false},
@@ -116,8 +116,8 @@ export class ModalPayComponent {
 			let deliveryIfo = this.cartService.getDeliveryInfo();
 			this.pickUp? deliveryIfo.deliveryType = 'PickUp' : deliveryIfo.deliveryType = 'Delivery';
 			if (deliveryIfo.deliveryType === 'Delivery'){
-				//completar
-				deliveryIfo.setDeliveryDetails("", "");
+				deliveryIfo.setDeliveryDetails(this.residence, this.reference);
+				deliveryIfo.setScheduledTime(this.date, this.time);
 			}
 			this.now? deliveryIfo.timeType = 'now':deliveryIfo.timeType = 'scheduled';
 			if (deliveryIfo.timeType === 'scheduled'){
@@ -150,4 +150,5 @@ export class ModalPayComponent {
 		this.date.day = d;
 		this.date.month = m;
 	}
+
 }

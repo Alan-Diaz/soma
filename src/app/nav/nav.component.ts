@@ -43,7 +43,6 @@ export class NavComponent implements OnInit {
 	}
 
   removeItem(id:number){
-    console.log("aloha");
     this.cartService.removeItem(id);
   }
 

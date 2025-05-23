@@ -25,10 +25,4 @@ export class HeadComponent implements OnInit {
 
 	showNavigationArrows = false;
 	showNavigationIndicators = false;
-
-  images = [
-  "assets/img/bondiola.png", 
-  "assets/img/carne desmenuzada sin fondo.png", 
-  "assets/img/atun y crema sin fondo.png",
-  "assets/img/pollo y verdeo sin fond.png"];
 }

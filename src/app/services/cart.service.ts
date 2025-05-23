@@ -68,24 +68,24 @@ export class CartService {
     });
   
     msg += `\n *Total:* $${c.getTotalValue()}\n\n`;
-  
     msg += `🕒 *Entrega:* ${d.deliveryType}\n`;
     if (d.deliveryType === 'Delivery') {
       msg += `🏠 *Dirección:* ${d.deliveryDetails?.address}\n`;
       if (d.deliveryDetails?.reference) {
-        msg += `📌 *Referencia:* ${d.deliveryDetails?.address}\n`;
+        msg += `📌 *Referencia:* ${d.deliveryDetails?.reference} - \n`;
       }
     } else {
       msg += `(retira en Italia 1245)\n`;
     }
   
     if (d.timeType === 'scheduled') {
-      msg += `\n🕒 *Programado para:*\n📅 Fecha: ${d.scheduledTime?.date}\n🕐 Hora: ${d.scheduledTime?.time.hour}:${d.scheduledTime?.time.minute}\n`;
+      msg += `\n🕒 *Programado para:*\n📅 Fecha: ${d.scheduledTime?.date.day}/${d.scheduledTime?.date.month} \n🕐 Hora: ${d.scheduledTime?.time.hour}:${d.scheduledTime?.time.minute}\n`;
     } else {
       msg += `\n🕒 *Entrega: Lo antes posible*\n`;
     }
   
-    msg += `\n✅ *Método de pago:* ${d.payMethod}\n`;
+    let deliveryType = d.payMethod === 'cash'? "Efectivo":"Transferencia"; 
+    msg += `\n✅ *Método de pago:* ${deliveryType}\n`;
     msg += `\n---\n📍 Enviado desde la tienda online`;
   
     const msgEncode = encodeURIComponent(msg);
