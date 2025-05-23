@@ -12,7 +12,7 @@ import { NavComponent } from './nav/nav.component';
     ProductListComponent,
     NutritionalFactComponent,
     PerOrderComponent,
-    NavComponent
+    NavComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

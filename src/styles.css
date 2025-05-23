@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 :root{
     --dark-green: #0B2416;
-    --light-green: #284D38;
+    --light-green: rgb(40, 77, 56);
     --beige: #F7F1DA;
 
 }
@@ -22,3 +22,5 @@ body{
 }
 
 html, body { height: 100%; }
+
+
