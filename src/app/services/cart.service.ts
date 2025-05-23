@@ -89,7 +89,7 @@ export class CartService {
     msg += `\n---\n📍 Enviado desde la tienda online`;
   
     const msgEncode = encodeURIComponent(msg);
-    const number = '+542494585779'; // número de comercio en formato internacional sin "+"
+    const number = '+542494205923'; // número de comercio en formato internacional sin "+"
     const urlWhatsApp = `https://wa.me/${number}?text=${msgEncode}`;
 
     return urlWhatsApp;
