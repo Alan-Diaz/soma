@@ -21,7 +21,7 @@
         "id": 3,
         "name": "Pan de Hamburguesa",
         "price": 12000.00,
-        "description": "Pan de hamburguesa con harina de almendra, psyllium y  huevo. Para tus hamburguesas, sándwiches o tostadas sin gluten y sin harinas.",
+        "description": "Pan de hamburguesa con harina de almendra, psyllium y huevo. Para tus hamburguesas, sándwiches o tostadas sin gluten.",
         "img":"assets/img/pdhamburguesa.png"
     },{
         "id": 4,
