@@ -18,6 +18,4 @@ export class CardComponent {
   price:0
 };
 
-@Input() optionals: Optional[] = [];
-
 }

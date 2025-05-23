@@ -6,6 +6,7 @@ import { Optional } from '../../models/optional.model';
 import { NgFor, NgIf } from '@angular/common';
 import { OnInit } from '@angular/core';
 import { CartService } from '../../services/cart.service';
+import { ProductsService } from '../../services/products.service';
 @Component({
   selector: 'app-modal',
   standalone: true,
@@ -30,18 +31,22 @@ export class ModalComponent implements OnInit {
 		price:0
 	};
 
-	@Input() optionals: Optional[]=[];
+	optionals: Optional[]=[];
 	  
 	
 	constructor(
 		private cartService: CartService, 
 		config: NgbModalConfig, 
 		private modalService: NgbModal,
+		private productService: ProductsService
 	) {
 		config.backdrop = 'static';
 		config.keyboard = false;
 		config.centered = true;
 		config.modalDialogClass
+		this.productService.getOptionals().forEach(data =>{
+			this.optionals.push(new Optional(data.id, data.name, data.price, data.max, data.count));
+		})
 	}
 
 	ngOnInit(): void {
@@ -58,12 +63,15 @@ export class ModalComponent implements OnInit {
 		const index = this.optionalsCart.findIndex(p => p.id === op.id);
 		if (index === -1) {
 			op.count = 1;
-			const o = {"id" : op.id, "name": op.name, "price": op.price, "max":op.max, "count":op.count };
-			this.optionalsCart.push(o);
+			this.optionalsCart.push(op);
 		} else {
-			const actual = this.optionalsCart[index];
-			if (actual.count < actual.max) {
-				actual.count++;
+			if (op.count < op.max) {
+				op.count++;
+				op.price = op.price * op.count;
+				console.log(op);
+				console.log(this.optionalsCart);
+				
+				
 			} else {
 				this.warn = "Se alcanzó la cantidad máxima para " + op.name;
 				setTimeout(() => {
@@ -71,27 +79,31 @@ export class ModalComponent implements OnInit {
 				}, 5000);
 			}
 		}
-		this.totalCart = this.optionalsCart.reduce((total, p) => total + p.price * p.count, 0);
+		this.totalCart = this.optionalsCart.reduce((total, p) => total + p.price, 0);
+		console.log(this.totalCart);
 		this.total = this.product.price + this.totalCart;
 	}
 
 	minus(op:Optional){
 		const index = this.optionalsCart.findIndex(p => p.id === op.id);
 		if (index !== -1) {
-			const optional = this.optionalsCart[index];
-			if (optional.count <= 1) {
+			if (op.count !==0){
+				op.price = op.price/op.count;
+			}
+			if (op.count <= 1) {
 				this.optionalsCart.splice(index, 1);
 			}
-			optional.count--;
+			op.count--;
+			this.totalCart = this.optionalsCart.reduce((total, p) => total + p.price * p.count, 0);
+			this.total = this.product.price + this.totalCart;
 		}
-		this.totalCart = this.optionalsCart.reduce((total, p) => total + p.price * p.count, 0);
-		this.total = this.product.price + this.totalCart;
 	}
 
 	close(){
 		this.cartService.addItem(this.product, this.optionalsCart);
 		this.optionalsCart = [];
-		this.optionals.forEach(op => op.count = 0);
+		this.productService.cleanOptionals();
+		this.optionals = this.productService.getOptionals();
 		this.modalRef?.close('');
 	}
 }
