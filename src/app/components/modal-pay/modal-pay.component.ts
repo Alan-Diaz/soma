@@ -13,7 +13,7 @@ import {
 } 
 	
 from '@ng-bootstrap/ng-bootstrap';
-import { CartService } from '../services/cart.service';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-modal-pay',
@@ -69,18 +69,37 @@ export class ModalPayComponent {
 
 
 
+	getCanOrder(t:{hour:number, minute:number}): boolean{
+		if ( (t.hour>=12 && t.minute>=15) && t.hour<=16 || t.hour>=20 && t.hour<=23 ){
+			return true;
+		}
+		return false;
+	}
+
+	
 	open(content: any) {
 		this.modalRef = this.modalService.open(content);
 	}
 
 	whenOnCheck(opcion: number) {
-		if (opcion === 2){ 
+		let now = new Date();
+		let hour = now.getHours();
+		let minute = now.getMinutes();
+
+		if (opcion === 2 && this.getCanOrder({hour:hour, minute:minute})){ 
 			this.now = true;
 			this.later=false;
 		}
-		if (opcion === 1) {
+		if (opcion === 1 ) {
 			this.later = true;
 			this.now = false;
+		}	
+		if (opcion === 2 && !this.getCanOrder({hour:hour, minute:minute})){ 
+			this.pickUp = false;
+			this.later = true;
+			this.now = false;
+			this.outOfRange.msj = "Fuera del horario de atencion/despacho, programe e pedido seleccionando fecha y hora";
+			this.outOfRange.can = false;
 		}
 		this.arrWarns[1].active=false;
 	}
@@ -93,6 +112,7 @@ export class ModalPayComponent {
 		if (opcion === 2) {
 			this.delivery = true;
 			this.pickUp = false;
+			
 		}
 		this.arrWarns[0].active=false;
 	}
@@ -135,11 +155,10 @@ export class ModalPayComponent {
 	hourOnChange(t:{hour: number, minute:number}){
 		//el horario de atencion arranca 12:30 y termina a las 16
 		// a la noche arranca a las 20hs y termina a las 23
-		if ( (t.hour>=12 && t.minute>=30) && t.hour<=16 || t.hour>=20 && t.hour<=23 ){
+		if ( this.getCanOrder(t)){
 			this.outOfRange.msj = "Dentro del horario de atencion/despacho";
 			this.outOfRange.can = true;
 			this.time = t;
-
 		}else{
 			this.outOfRange.msj = "Fuera del horario de atencion/despacho";
 			this.outOfRange.can = false;

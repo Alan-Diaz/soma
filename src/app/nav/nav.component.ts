@@ -3,7 +3,7 @@ import { NgbOffcanvas, NgbOffcanvasConfig } from '@ng-bootstrap/ng-bootstrap';
 import { NgFor, NgIf } from '@angular/common';
 import { CartService } from '../services/cart.service';
 import { Cart } from '../models/cart.model';
-import { ModalPayComponent } from '../modal-pay/modal-pay.component';
+import { ModalPayComponent } from '../components/modal-pay/modal-pay.component';
 @Component({
   selector: 'app-nav',
   imports: [NgFor, NgIf, ModalPayComponent],
