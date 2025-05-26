@@ -41,6 +41,7 @@ export class ModalPayComponent {
 	dayMonth: { day: number; month: number } = {day:this.date.getDate(), month: this.date.getMonth() + 1};
 	time : { hour: number; minute: number } = { hour: this.date.getHours(), minute: this.date.getMinutes()};
 	model: NgbDateStruct = {year:this.date.getFullYear(), month:this.date.getMonth() + 1, day:this.date.getDate()};	
+	//model: NgbDateStruct = {year:2025, month:5 + 1, day:26};	
 	minDate: NgbDateStruct = this.model;
 	maxDate: NgbDateStruct = {
 	  year: this.date.getFullYear(),
@@ -75,7 +76,7 @@ export class ModalPayComponent {
 
 	ngOnInit(): void {
 		this.outOfRange.can = this.getCanOrder(this.time);
-		this.outOfRange.can? this.outOfRange.msj = "Dentro del horario de atencion/despacho": this.outOfRange.msj = "Fuera del horario de atencion/despacho, programe e pedido seleccionando fecha y hora";
+		this.outOfRange.can? this.outOfRange.msj = "Dentro del horario de atencion/despacho": this.outOfRange.msj = "Fuera del horario de atencion/despacho, programe el pedido seleccionando fecha y hora";
 		setInterval(() => {
 			this.date = new Date();
 			this.time = { hour: this.date.getHours(), minute: this.date.getMinutes()}; // Actualiza la instancia completa
@@ -84,7 +85,7 @@ export class ModalPayComponent {
 
 
 	getCanOrder(t:{hour:number, minute:number}): boolean{
-		if ( (t.hour>=12 && t.minute>=15) && t.hour<=16 || t.hour>=20 && t.hour<=23 ){
+		if ( t.hour>=12 && t.hour<=16 || t.hour>=20 && t.hour<=23 ){
 			return true;
 		}
 		return false;
@@ -165,6 +166,8 @@ export class ModalPayComponent {
 	hourOnChange(t:{hour: number, minute:number}){
 		//el horario de atencion arranca 12:30 y termina a las 16
 		// a la noche arranca a las 20hs y termina a las 23
+		console.log(t);
+		
 		if ( this.getCanOrder(t)){
 			this.outOfRange.msj = "Dentro del horario de atencion/despacho";
 			this.outOfRange.can = true;
