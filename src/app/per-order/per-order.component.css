@@ -7,6 +7,9 @@
     box-shadow: inset;
     box-shadow:0 4px 10px rgba(0,0,0,0.6);
 }
+.description{
+    height: 100%;
+}
 p.light{
     margin: 0;
     font-size: 0.75rem;

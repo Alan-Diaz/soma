@@ -1,17 +1,15 @@
 import { NgIf, NgClass, NgFor } from '@angular/common';
-import { Component,  inject, Input, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule, ReactiveFormsModule,  } from '@angular/forms';
 import { 
 	NgbModal,
 	NgbModalConfig,
-	NgbCalendar,
 	NgbDatepickerModule,
-	NgbDateStruct,
 	NgbInputDatepickerConfig,
 	NgbDropdownModule,
-	NgbTimepickerModule
+	NgbTimepickerModule,
+	NgbDateStruct
 } 
-	
 from '@ng-bootstrap/ng-bootstrap';
 import { CartService } from '../../services/cart.service';
 
@@ -28,18 +26,30 @@ import { CartService } from '../../services/cart.service';
 })
 export class ModalPayComponent {
 	modalRef: any;
+	//tuggles
 	now : boolean = false;
 	later: boolean = false;
 	pickUp : boolean = false;
 	delivery: boolean = false;
-	payMethodSelected: string = "";
-	today = inject(NgbCalendar).getToday();
-	model: NgbDateStruct = this.today;
-	date: { day: number; month: number } = {day:this.today.day, month: this.today.month};
-	time = { hour: 12, minute: 30 };
-	outOfRange: {can:boolean, msj:string}={can:true, msj:"Dentro del horario de atencion/despacho"};
+	//delivery inputs
 	residence :string="";
 	reference : string ="";
+	//paymethod
+	payMethodSelected: string = "";
+	//date time
+	date: Date = new Date();
+	dayMonth: { day: number; month: number } = {day:this.date.getDate(), month: this.date.getMonth() + 1};
+	time : { hour: number; minute: number } = { hour: this.date.getHours(), minute: this.date.getMinutes()};
+	model: NgbDateStruct = {year:this.date.getFullYear(), month:this.date.getMonth() + 1, day:this.date.getDate()};	
+	minDate: NgbDateStruct = this.model;
+	maxDate: NgbDateStruct = {
+	  year: this.date.getFullYear(),
+	  month: this.date.getMonth() + 2,
+	  day: 31
+	};
+
+	//warns
+	outOfRange: {can:boolean, msj:string}={can:true, msj:"Dentro del horario de atencion/despacho"};
 	arrWarns : {warn: string, active: boolean}[] = [
 		{warn: "Debe elegir delivery", active: false},
 		{warn: "Debe que elgir momento de entrega", active: false},
@@ -64,9 +74,13 @@ export class ModalPayComponent {
 	}
 
 	ngOnInit(): void {
-
+		this.outOfRange.can = this.getCanOrder(this.time);
+		this.outOfRange.can? this.outOfRange.msj = "Dentro del horario de atencion/despacho": this.outOfRange.msj = "Fuera del horario de atencion/despacho, programe e pedido seleccionando fecha y hora";
+		setInterval(() => {
+			this.date = new Date();
+			this.time = { hour: this.date.getHours(), minute: this.date.getMinutes()}; // Actualiza la instancia completa
+		  }, 60000); // cada minuto
 	}
-
 
 
 	getCanOrder(t:{hour:number, minute:number}): boolean{
@@ -75,18 +89,13 @@ export class ModalPayComponent {
 		}
 		return false;
 	}
-
 	
 	open(content: any) {
 		this.modalRef = this.modalService.open(content);
 	}
 
-	whenOnCheck(opcion: number) {
-		let now = new Date();
-		let hour = now.getHours();
-		let minute = now.getMinutes();
-
-		if (opcion === 2 && this.getCanOrder({hour:hour, minute:minute})){ 
+	whenOnCheck(opcion: number) {	
+		if (opcion === 2 && this.getCanOrder(this.time)){ 
 			this.now = true;
 			this.later=false;
 		}
@@ -94,7 +103,8 @@ export class ModalPayComponent {
 			this.later = true;
 			this.now = false;
 		}	
-		if (opcion === 2 && !this.getCanOrder({hour:hour, minute:minute})){ 
+
+		if (opcion === 2 && !this.getCanOrder(this.time)){ 
 			this.pickUp = false;
 			this.later = true;
 			this.now = false;
@@ -137,16 +147,16 @@ export class ModalPayComponent {
 			this.pickUp? deliveryIfo.deliveryType = 'PickUp' : deliveryIfo.deliveryType = 'Delivery';
 			if (deliveryIfo.deliveryType === 'Delivery'){
 				deliveryIfo.setDeliveryDetails(this.residence, this.reference);
-				deliveryIfo.setScheduledTime(this.date, this.time);
+				deliveryIfo.setScheduledTime(this.dayMonth, this.time);
 			}
 			this.now? deliveryIfo.timeType = 'now':deliveryIfo.timeType = 'scheduled';
 			if (deliveryIfo.timeType === 'scheduled'){
-				deliveryIfo.setScheduledTime(this.date, this.time)
+				deliveryIfo.setScheduledTime(this.dayMonth, this.time)
 			}
 			deliveryIfo.payMethod = this.payMethodSelected=== "Efectivo"?  'cash' : 'transfer'; 
 			let b = this.cartService.sendMsg();
-			//quiere decir que el carrito esta vacio 
 			if (!b){
+				//cart empty b==true 
 				this.arrWarns[3].active=true;
 			}
 		}
@@ -166,8 +176,8 @@ export class ModalPayComponent {
 	}
 
 	dateChange(d: number, m:number){
-		this.date.day = d;
-		this.date.month = m;
+		this.dayMonth.day = d;
+		this.dayMonth.month = m;
 	}
 
 }
