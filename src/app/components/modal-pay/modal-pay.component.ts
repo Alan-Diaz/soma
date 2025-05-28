@@ -39,7 +39,8 @@ export class ModalPayComponent {
 	//date time
 	date: Date = new Date();
 	dayMonth: { day: number; month: number } = {day:this.date.getDate(), month: this.date.getMonth() + 1};
-	time : { hour: number; minute: number } = { hour: this.date.getHours(), minute: this.date.getMinutes()};
+	timeNow : { hour: number; minute: number } = { hour: this.date.getHours(), minute: this.date.getMinutes()};
+	timeToSend = this.timeNow;
 	model: NgbDateStruct = {year:this.date.getFullYear(), month:this.date.getMonth() + 1, day:this.date.getDate()};	
 	//model: NgbDateStruct = {year:2025, month:5 + 1, day:26};	
 	minDate: NgbDateStruct = this.model;
@@ -75,28 +76,25 @@ export class ModalPayComponent {
 	}
 
 	ngOnInit(): void {
-		this.outOfRange.can = this.getCanOrder(this.time);
+		this.outOfRange.can = this.getCanOrder(this.timeNow);
 		this.outOfRange.can? this.outOfRange.msj = "Dentro del horario de atencion/despacho": this.outOfRange.msj = "Fuera del horario de atencion/despacho, programe el pedido seleccionando fecha y hora";
 		setInterval(() => {
 			this.date = new Date();
-			this.time = { hour: this.date.getHours(), minute: this.date.getMinutes()}; // Actualiza la instancia completa
+			this.timeNow = { hour: this.date.getHours(), minute: this.date.getMinutes()}; // Actualiza la instancia completa
 		  }, 60000); // cada minuto
 	}
 
 
 	getCanOrder(t:{hour:number, minute:number}): boolean{
-		if ( t.hour>=12 && t.hour<=16 || t.hour>=20 && t.hour<=23 ){
+		if ( t.hour>=13 && t.hour<=16 || t.hour>=20 && t.hour<=23 ){
 			return true;
 		}
 		return false;
 	}
 	
-	open(content: any) {
-		this.modalRef = this.modalService.open(content);
-	}
 
 	whenOnCheck(opcion: number) {	
-		if (opcion === 2 && this.getCanOrder(this.time)){ 
+		if (opcion === 2 && this.getCanOrder(this.timeNow)){ 
 			this.now = true;
 			this.later=false;
 		}
@@ -105,7 +103,7 @@ export class ModalPayComponent {
 			this.now = false;
 		}	
 
-		if (opcion === 2 && !this.getCanOrder(this.time)){ 
+		if (opcion === 2 && !this.getCanOrder(this.timeNow)){ 
 			this.pickUp = false;
 			this.later = true;
 			this.now = false;
@@ -133,6 +131,10 @@ export class ModalPayComponent {
 		this.arrWarns[2].active=false;
 	}
 
+	open(content: any) {
+		this.modalRef = this.modalService.open(content);
+	}
+
 	send(){
 		let ready = true;
 		!this.pickUp && !this.delivery ? this.arrWarns[0].active = true: this.arrWarns[0].active = false;
@@ -148,30 +150,41 @@ export class ModalPayComponent {
 			this.pickUp? deliveryIfo.deliveryType = 'PickUp' : deliveryIfo.deliveryType = 'Delivery';
 			if (deliveryIfo.deliveryType === 'Delivery'){
 				deliveryIfo.setDeliveryDetails(this.residence, this.reference);
-				deliveryIfo.setScheduledTime(this.dayMonth, this.time);
+				deliveryIfo.setScheduledTime(this.dayMonth, this.timeToSend);
 			}
 			this.now? deliveryIfo.timeType = 'now':deliveryIfo.timeType = 'scheduled';
 			if (deliveryIfo.timeType === 'scheduled'){
-				deliveryIfo.setScheduledTime(this.dayMonth, this.time)
+				deliveryIfo.setScheduledTime(this.dayMonth, this.timeToSend)
 			}
 			deliveryIfo.payMethod = this.payMethodSelected=== "Efectivo"?  'cash' : 'transfer'; 
 			let b = this.cartService.sendMsg();
 			if (!b){
 				//cart empty b==true 
 				this.arrWarns[3].active=true;
+			}{
+				setTimeout(()=>{
+					window.location.reload();
+				}, 5000);
 			}
 		}
 	}
 
 	hourOnChange(t:{hour: number, minute:number}){
-		//el horario de atencion arranca 12:30 y termina a las 16
+		//el horario de atencion arranca 13 y termina a las 16
 		// a la noche arranca a las 20hs y termina a las 23
-		console.log(t);
-		
+
+		//si esta seleccionando para despues
+		if(this.later){
+			//y la hora que selecciono es menor a la hora actual error
+			if (t.hour < this.timeNow.hour){
+
+			}
+		}
+
 		if ( this.getCanOrder(t)){
 			this.outOfRange.msj = "Dentro del horario de atencion/despacho";
 			this.outOfRange.can = true;
-			this.time = t;
+			this.timeToSend = t;
 		}else{
 			this.outOfRange.msj = "Fuera del horario de atencion/despacho";
 			this.outOfRange.can = false;
