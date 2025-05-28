@@ -15,7 +15,7 @@ export class CartItem{
     }
     
     getTotalValue(): number{
-        return this.optionals.reduce((total, p) => total + p.price * p.count, 0) + this.product.price;
+        return this.optionals.reduce((total, p) => total + p.price, 0) + this.product.price;
     }
 }
 
